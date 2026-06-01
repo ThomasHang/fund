@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="基金涨跌">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#667eea">
+    <title>基金涨跌查看工具</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>📊 基金涨跌查看</h1>
+            <p>实时查看基金估值变化</p>
+        </header>
+
+        <!-- 搜索区域 -->
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text"
+                       id="searchInput"
+                       class="search-input"
+                       placeholder="输入基金代码，如 110011"
+                       autocomplete="off"
+                       inputmode="numeric"
+                       pattern="[0-9]*">
+                <button id="searchBtn" class="btn-search">查询</button>
+            </div>
+            <div id="searchResult" class="search-result"></div>
+        </section>
+
+        <!-- 收藏列表 -->
+        <section class="watchlist-section">
+            <div class="section-header">
+                <h2 class="section-title">我的收藏</h2>
+                <button id="refreshBtn" class="btn-refresh">🔄 刷新</button>
+            </div>
+            <div id="watchlist" class="watchlist-container">
+                <div class="loading">加载中...</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 引入 JS 模块 -->
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

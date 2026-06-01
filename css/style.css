@@ -1,0 +1,684 @@
+/* 基金涨跌查看工具样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* 防止 iOS 双击缩放 */
+    touch-action: manipulation;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    /* iOS 安全区域 */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    /* 防止 iOS 弹性滚动 */
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+    /* 适配 iOS 安全区域 */
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* 搜索区域 */
+.search-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px; /* iOS 防止缩放的最小字号 */
+    transition: border-color 0.3s;
+    outline: none;
+    /* 触摸友好的最小高度 */
+    min-height: 48px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.search-input:focus {
+    border-color: #667eea;
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.btn-search {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* 触摸友好的最小尺寸 */
+    min-height: 48px;
+    min-width: 80px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-search:active {
+    transform: translateY(0);
+    opacity: 0.9;
+}
+
+/* 搜索结果 */
+.search-result {
+    margin-top: 15px;
+}
+
+/* 收藏列表区域 */
+.watchlist-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.btn-refresh {
+    padding: 10px 18px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    /* 触摸友好的最小尺寸 */
+    min-height: 44px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-refresh:hover {
+    background: #e0e0e0;
+}
+
+.btn-refresh:active {
+    background: #d0d0d0;
+}
+
+/* 基金卡片 */
+.fund-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #eee;
+}
+
+.fund-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-result-card {
+    background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+    border: 1px solid #d4d8ff;
+}
+
+.error-card {
+    background: #fff5f5;
+    border: 1px solid #ffcdd2;
+}
+
+.fund-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.fund-code {
+    background: #667eea;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.fund-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.btn-watchlist {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #667eea;
+    color: white;
+    /* 触摸友好的最小尺寸 */
+    min-height: 40px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-watchlist:hover {
+    background: #5a6fd6;
+}
+
+.btn-watchlist:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+}
+
+.btn-watchlist.watched {
+    background: #ccc;
+    color: #666;
+}
+
+.btn-remove {
+    padding: 8px 16px;
+    border: 1px solid #ff4757;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: #ff4757;
+    /* 触摸友好的最小尺寸 */
+    min-height: 40px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-remove:hover {
+    background: #ff4757;
+    color: white;
+}
+
+.btn-remove:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+}
+
+/* 基金数据展示 */
+.fund-body {
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.fund-nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.nav-item {
+    text-align: center;
+    flex: 1;
+}
+
+.nav-label {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.nav-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.nav-value.up {
+    color: #ff4757;
+}
+
+.nav-value.down {
+    color: #2ed573;
+}
+
+.fund-time {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    padding-top: 8px;
+    border-top: 1px dashed #eee;
+}
+
+/* 空状态 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.empty-text {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.empty-hint {
+    font-size: 13px;
+    color: #bbb;
+}
+
+/* 加载状态 */
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #667eea;
+    font-size: 14px;
+}
+
+.loading::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #667eea;
+    border-top-color: transparent;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 错误状态 */
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #ff4757;
+    font-size: 14px;
+}
+
+/* 提示消息 */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    /* 适配 iOS 安全区域 */
+    margin-bottom: env(safe-area-inset-bottom);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    .container {
+        padding: 12px;
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        padding-left: max(12px, env(safe-area-inset-left));
+        padding-right: max(12px, env(safe-area-inset-right));
+    }
+
+    .header {
+        padding: 16px 0;
+        border-radius: 10px;
+        margin-bottom: 16px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .header p {
+        font-size: 13px;
+    }
+
+    .search-section {
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 10px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn-search {
+        width: 100%;
+    }
+
+    .watchlist-section {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .section-header {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+
+    .section-title {
+        font-size: 16px;
+    }
+
+    .fund-card {
+        padding: 14px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+    .fund-header {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .fund-name {
+        width: 100%;
+        order: -1;
+        font-size: 15px;
+    }
+
+    .fund-code {
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+
+    .fund-nav {
+        gap: 8px;
+    }
+
+    .nav-item {
+        min-width: 70px;
+    }
+
+    .nav-label {
+        font-size: 11px;
+    }
+
+    .nav-value {
+        font-size: 15px;
+    }
+
+    .fund-time {
+        font-size: 11px;
+    }
+}
+
+/* iPhone SE 等小屏设备 */
+@media (max-width: 375px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    .search-input {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .btn-search {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+
+    .fund-nav {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .nav-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .nav-label {
+        margin-bottom: 0;
+        font-size: 12px;
+    }
+
+    .nav-value {
+        font-size: 14px;
+    }
+}
+
+/* iPhone X 及以上带刘海的设备 */
+@supports (padding: max(0px)) {
+    .header {
+        padding-top: max(20px, env(safe-area-inset-top));
+    }
+
+    .toast {
+        bottom: max(30px, env(safe-area-inset-bottom));
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fund-card {
+    animation: fadeIn 0.3s ease;
+}
+
+/* iOS 特定优化 */
+@supports (-webkit-touch-callout: none) {
+    /* 禁用 iOS 长按菜单 */
+    .fund-card {
+        -webkit-touch-callout: none;
+    }
+
+    /* 优化 iOS 滚动性能 */
+    .watchlist-container {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* 深色模式支持 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    }
+
+    .search-section,
+    .watchlist-section {
+        background: #2d2d2d;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-input {
+        background: #3d3d3d;
+        border-color: #4d4d4d;
+        color: #fff;
+    }
+
+    .search-input::placeholder {
+        color: #888;
+    }
+
+    .fund-card {
+        background: #3d3d3d;
+        border-color: #4d4d4d;
+    }
+
+    .search-result-card {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-color: #4a5568;
+    }
+
+    .fund-name {
+        color: #fff;
+    }
+
+    .nav-label {
+        color: #888;
+    }
+
+    .fund-time {
+        color: #888;
+        border-top-color: #4d4d4d;
+    }
+
+    .section-header {
+        border-bottom-color: #4d4d4d;
+    }
+
+    .btn-refresh {
+        background: #4d4d4d;
+        color: #fff;
+    }
+
+    .btn-refresh:hover {
+        background: #5d5d5d;
+    }
+
+    .empty-state {
+        color: #888;
+    }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* 防止 iOS 输入框缩放 */
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+select,
+textarea {
+    font-size: 16px !important;
+}
+
+/* iOS 点击高亮 */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 优化 iOS 滚动 */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
