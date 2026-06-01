@@ -9,10 +9,16 @@
 - 🔄 **自动刷新**：每30秒自动更新数据
 - 📱 **响应式设计**：支持手机和电脑访问
 - 💾 **本地存储**：收藏列表保存在浏览器中
+- 🌙 **深色模式**：自动跟随系统深色模式
+- 📲 **PWA 支持**：可添加到手机主屏幕
 
 ## 使用方法
 
-### 1. 启动工具
+### 1. 在线访问
+
+部署后直接访问 Vercel 分配的域名即可使用。
+
+### 2. 本地开发
 
 直接在浏览器中打开 `index.html` 文件即可使用。
 
@@ -90,8 +96,46 @@ fund/
 支持所有现代浏览器：
 - Chrome 60+
 - Firefox 55+
-- Safari 11+
+- Safari 11+（iOS 15+）
 - Edge 79+
+
+## 部署到 Vercel
+
+### 方法一：通过 Vercel CLI
+
+1. 安装 Vercel CLI
+```bash
+npm i -g vercel
+```
+
+2. 登录 Vercel
+```bash
+vercel login
+```
+
+3. 部署项目
+```bash
+cd fund
+vercel
+```
+
+4. 按照提示操作，完成后会得到一个域名
+
+### 方法二：通过 Vercel 网站
+
+1. 将代码推送到 GitHub 仓库
+2. 访问 [vercel.com](https://vercel.com)
+3. 点击 "New Project"
+4. 导入你的 GitHub 仓库
+5. 点击 "Deploy"
+6. 等待部署完成，获取域名
+
+### 自定义域名（可选）
+
+1. 在 Vercel 项目设置中点击 "Domains"
+2. 添加你的自定义域名
+3. 按照提示配置 DNS 记录
+4. 等待 DNS 生效
 
 ## 许可证
 

@@ -30,7 +30,7 @@ const FundAPI = {
                 resolve(data);
             };
 
-            script.src = `http://fundgz.1234567.com.cn/js/${fundCode}.js?rt=${Date.now()}`;
+            script.src = `https://fundgz.1234567.com.cn/js/${fundCode}.js?rt=${Date.now()}`;
             script.onerror = function() {
                 cleanup();
                 reject(new Error('网络错误'));
